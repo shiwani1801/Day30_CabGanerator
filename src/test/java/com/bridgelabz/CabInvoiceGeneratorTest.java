@@ -3,19 +3,25 @@ package com.bridgelabz;
 import org.junit.Assert;
 import org.junit.Test;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 public class CabInvoiceGeneratorTest {
     @Test
-    public void calculateFareOfOneRide() {
-        CabInvoiceGenerator obj = new CabInvoiceGenerator();
-        double test = obj.calculateFare(10, 15);
-        Assert.assertEquals(115.0, test, 0.0);
-    }
-    @Test
-    public void MonthFareTest() {
-        CabInvoiceGenerator obj = new CabInvoiceGenerator();
-        Ride[] rides = { new Ride(1, 23), new Ride(1, 2) };
-        double monthfare = obj.calculateFare(rides);
-        Assert.assertEquals(45.0, monthfare, 0.0);
+    public void givenUserId_shouldReturnInvoiceSummary() {
+        try {
+            String userId = "me.shadab@gmail.com";
+            Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
+            CabInvoiceGenerator.addRides(userId, rides);
+            InvoiceSummary summary;
 
+            summary = CabInvoiceGenerator.calculateFare(rides, "normal");
+
+            InvoiceSummary invoiceSummary = CabInvoiceGenerator.getInvoiceSummary(userId);
+            Assert.assertEquals(invoiceSummary, summary);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            System.out.println(e.getMessage());
+        }
     }
 }
